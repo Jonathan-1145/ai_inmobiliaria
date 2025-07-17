@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es" style="visibility:hidden;">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>HomeCat</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/static/img/favicon.ico" type="image/ico" />
+
+    <!-- Bootstrap & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Fuente moderna -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+
+    <!-- Fondo Mientras Carga la Página -->
+    <style>
+        html {
+            background-color: #121212;
+        }
+    </style>
+
+    <!-- Mostrar Elementos de la Página -->
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            document.documentElement.style.visibility = 'visible';
+        });
+    </script>
+</head>
+<body class="inicio-homecat-ai">
+    <div class="container-fluid px-0">
+        <div class="row g-0 flex-nowrap">
+
+            <!-- Sidebar izquierda -->
+            <aside class="sidebar d-flex flex-column align-items-start p-3 no-copy">
+                <div class="model-summary no-copy">
+                    <div class="ia-logo-container text-center w-100">
+                        <img src="/static/img/logo-homecat.png" alt="Logo HomeCat" class="ia-logo img-fluid">
+                    </div>
+
+                    <h6 class="homecat-sidebar mb-5 text-center">HomeCat</h6>
+
+                    <h6 class="bi bi-info-circle-fill summary-title mb-2 text-center"> Acerca del modelo</h6>
+                    <p class="summary-description mb-5 centrado-justificado">
+                        Este asistente está diseñado para ayudarte a encontrar propiedades reales que se ajusten a tus gustos, necesidades y presupuesto.
+                        Su comportamiento imita el de un asesor inmobiliario humano: hace preguntas relevantes, propone alternativas cuando es necesario,
+                        y explica por qué una propiedad puede ser adecuada para ti.
+                    </p>
+
+                    <h6 class="bi bi-ui-checks-grid summary-title mb-2 text-center"> Características</h6>
+                    <ul class="summary-bullets ps-3 mb-5 centrado-justificado">
+                        <li>Recomienda inmuebles reales.</li>
+                        <li>Responde con datos precisos.</li>
+                        <li>Consulta antes de sugerir.</li>
+                        <li>Es claro, útil y profesional.</li>
+                        <li>Analiza tus gustos al instante.</li>
+                        <li>Propone opciones cercanas.</li>
+                        <li>Solo habla de propiedades.</li>
+                        <li>Pregunta si no hay interacción.</li>
+                        <li>No explica temas si no se pide.</li>
+                    </ul>
+
+                    <footer class="sidebar-sticky-footer">
+                        <div class="summary-note small">
+                            Es importante tener en cuenta que esta inteligencia artificial puede equivocarse ocasionalmente.
+                            No se almacenan datos personales ni las conversaciones realizadas.
+                            Su único objetivo es apoyarte para tomar decisiones informadas sin reemplazar la asesoría de un profesional humano.
+                        </div>
+                    </footer>
+                </div>
+            </aside>
+
+            <!-- Columna principal -->
+            <div class="chat-wrapper d-flex flex-column flex-grow-1">
+                <!-- Encabezado ESCRITORIO -->
+                <header class="chat-header desktop-header no-copy">
+                    <h1 class="title m-0">HomeCat</h1>
+                    <div class="version-pill-wrapper">
+                        <span class="version-pill" tabindex="0">HCX-1f</span>
+                        <div class="version-tooltip">
+                            <div class="tooltip-content d-flex align-items-start gap-3">
+                                <div class="tooltip-icon">
+                                    <i class="bi bi-house-door-fill fs-2"></i>
+                                </div>
+                                <div class="tooltip-text">
+                                    <div class="tooltip-header">HomeCat Expert System v1 Full</div>
+                                    <p class="tooltip-description">
+                                        Modelo conversacional optimizado para asesoría inmobiliaria, desarrollado por Digital World Ideas Center.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Encabezado MÓVIL -->
+                <header class="chat-header mobile-header text-center py-2 position-relative no-copy">
+                    <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menú">
+                        <i class="bi bi-list fs-0"></i>
+                    </button>
+                    <h1 class="title">HomeCat</h1>
+                    <div class="version-pill-wrapper">
+                        <span class="version-pill" tabindex="0">HCX-1f</span>
+                        <div class="version-tooltip">
+                            <div class="tooltip-content d-flex align-items-start gap-3">
+                                <div class="tooltip-icon">
+                                    <i class="bi bi-house-door-fill fs-2"></i>
+                                </div>
+                                <div class="tooltip-text">
+                                    <div class="tooltip-header">HomeCat Expert System v1 Full</div>
+                                    <p class="tooltip-description">
+                                        Modelo conversacional optimizado para asesoría inmobiliaria, desarrollado por Digital World Ideas Center.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Área de mensajes -->
+                <main id="chat-messages" class="chat-messages" role="log" aria-live="polite" aria-label="Mensajes del chat">
+
+                    <!-- Placeholder cuando no hay mensajes -->
+                    <div id="chat-placeholder" class="chat-placeholder" role="note" aria-label="Inicio del chat">
+                        <i class="bi bi-chat-dots no-copy"></i>
+                        <p class="no-copy">Empieza una conversación con HomeCat</p>
+                    </div>
+
+                    <!-- Contenedor dinámico de los mensajes -->
+                    <div class="chat-message-container"></div>
+
+                    <!-- Indicador de que el bot está escribiendo -->
+                    <div id="typing-indicator" class="typing-indicator">
+                        <i class="bi bi-robot align-items-center"></i>
+                        <span class="no-copy">
+                            HomeCat está pensando
+                            <span class="dots"></span>
+                        </span>
+                    </div>
+
+                    <!-- Ancla para scroll -->
+                    <div id="scroll-anchor" style="height: 1px;"></div>
+
+                </main>
+
+                <!-- Área de entrada -->
+                <footer class="chat-input">
+                    <form id="chat-form" class="chat-form d-flex align-items-center gap-2 mx-auto">
+                        <textarea id="user-input" class="form-control input-field" placeholder="Escribe tu mensaje..." rows="1" maxlength="1500" aria-label="Área para escribir tu mensaje al asistente"></textarea>
+
+                        <!-- Contador separado para no interferir -->
+                        <div class="position-relative">
+                            <div id="char-counter" class="char-counter">0 / 1500</div>
+                        </div>
+
+                        <button id="send-button" type="submit" class="btn btn-send" aria-label="Enviar mensaje">
+                            <i id="send-icon" class="bi bi-arrow-up-short fs-3"></i>
+                            <i id="icon-loading" class="bi bi-hourglass-split fs-3 d-none"></i>    
+                        </button>
+                    </form>
+                </footer>
+
+                <!-- Marca registrada -->
+                <div class="brand-footer text-center no-copy">
+                    <small>
+                        Digital World Ideas Center® Marca registrada. Todos los derechos reservados.
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+    <!-- Lightbox Viewer -->
+    <div id="img-modal" role="dialog" aria-modal="true" aria-label="Visor de imagen ampliada" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+        background-color: rgba(0, 0, 0, 0.85); z-index: 9999; justify-content: center; align-items: center; flex-direction: column;">
+        
+        <img id="img-modal-content" src="" alt="Zoom" style="max-width: 90%; max-height: 90%; border-radius: 12px; margin-bottom: 1rem;">
+        
+        <div style="position: absolute; top: 50%; left: 0.5rem; transform: translateY(-50%); cursor: pointer;" id="img-prev">
+            <i class="bi bi-chevron-left" style="color: white; font-size: 2rem;"></i>
+        </div>
+        <div style="position: absolute; top: 50%; right: 0.5rem; transform: translateY(-50%); cursor: pointer;" id="img-next">
+            <i class="bi bi-chevron-right" style="color: white; font-size: 2rem;"></i>
+        </div>
+    </div>
+
+    <div id="status-indicator" class="status-indicator" style="display: none;"></div>
+
+    <!-- JavaScript -->
+    <script type="module" src="/static/js/main.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

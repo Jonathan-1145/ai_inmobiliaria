@@ -1,0 +1,39 @@
+# --- ENTORNOS VIRTUALES ---
+venv/
+.env
+
+# --- PYTHON ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pkl
+*.db
+
+# --- VS CODE / VISUAL STUDIO ---
+.vscode/
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# --- LOGS Y TEMPORALES ---
+*.log
+*.tmp
+*.bak
+*.swp
+*.DS_Store
+Thumbs.db
+
+# --- MODELOS ---
+.models/
+*.gguf
+
+# --- OTROS ---
+*.sqlite
+workspaceFileList.bin
+CopilotIndices/
+FileContentIndex/
+DocumentLayout*.json

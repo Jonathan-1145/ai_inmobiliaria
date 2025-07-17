@@ -1,0 +1,86 @@
+/* ======================================================================== Estilo General ======================================================================== */
+body.page-error {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(
+        135deg,
+        #0d2c47 0%,
+        #103654 20%,
+        #14405f 40%,
+        #184a6b 60%,
+        #1d5677 80%,
+        #216183 100%
+    );
+    color: #d9efff;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+body.page-error .error-container {
+    text-align: center;
+    max-width: 800px;
+    padding: 20px;
+}
+
+body.page-error #lottie {
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto 40px;
+}
+
+body.page-error h1 {
+    font-size: 3rem;
+    margin: 0 0 10px;
+    color: #40c4f0;
+}
+
+body.page-error p {
+    font-size: 1.2rem;
+    margin: 0 0 20px;
+    color: #b0d6ea;
+}
+
+body.page-error ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto 20px;
+    color: #58caff;
+    font-size: 1rem;
+    text-align: left;
+    max-width: 500px;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body.page-error li {
+    margin-bottom: 5px;
+}
+
+body.page-error .error-action {
+    margin-top: 20px;
+}
+
+body.page-error .retry-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #2dabdc;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+body.page-error .retry-button:hover {
+    background-color: #217a9c;
+    transform: scale(1.05);
+}
+
+body.page-error .retry-button:active {
+    transform: scale(0.98);
+}

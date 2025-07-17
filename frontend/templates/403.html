@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Error 403</title>
+    <link rel="icon" href="/static/img/favicon.ico" type="image/ico" />
+    <link rel="stylesheet" href="/static/css/styles_errors.css">
+</head>
+<body class="page-error">
+    <div class="error-container">
+        <h1>Error 403</h1>
+        <p>{{ error_detail if error_detail else "Acceso denegado. No tiene permisos." }}</p>
+        <div id="lottie"></div>
+        <div class="error-action">
+            <a href="/start" class="retry-button">Volver a HomeCat</a>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.4/lottie.min.js"></script>
+    <script>
+        lottie.loadAnimation({
+            container: document.getElementById('lottie'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: '/static/lottie/Error.json'
+        });
+    </script>
+</body>
+</html>
