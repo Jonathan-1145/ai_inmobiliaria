@@ -9,6 +9,7 @@ import asyncio
 import time
 import sys
 import os
+import re
 
 logger = get_logger(__name__)
 
@@ -91,7 +92,7 @@ class LLMEngine:
         top_k = 30
         repeat_penalty = 1.2
         frequency_penalty = 0.3
-        stop = ["Usuario:", "Asesor:", "<</SYS>>", "\nUsuario", "\nAsesor"]
+        stop = ["Usuario:", "Asesor:", "<</SYS>>", "\nUsuario", "\nAsesor", "Sistema:", "\nSistema", "System:", "\nSystem"]
 
         logger.debug("🚦 Parámetros de inferencia:")
         logger.debug(f"         - Confirmación detectada: {hay_confirmacion}")
@@ -122,6 +123,7 @@ class LLMEngine:
                 raise ValueError("La respuesta del modelo no contiene texto válido")
 
             response = choices[0]["text"].strip()
+            response = re.sub(r"(?:^|[\r\n]+)(Sistema:|Asesor:|Usuario:|System:)\s*", "", response, flags=re.IGNORECASE)
             if not response:
                 raise ValueError("Texto de respuesta vacío")
 

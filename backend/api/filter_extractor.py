@@ -103,6 +103,54 @@ frases_confirmacion = [
     "dale, mostrame esa",
     "déjamela ver un momentico",
     "veámosla entonces",
+
+    # Estilo "Eso es todo"
+    "eso es todo",
+    "con eso está bien",
+    "suficiente por ahora",
+    "listo, gracias",
+    "no necesito más",
+    "hasta ahí está bien",
+    "con eso me sirve",
+    "ya con eso",
+    "eso era",
+    "no es más",
+
+    # Estilo "Así está bien"
+    "está perfecto así",
+    "así está bien",
+    "tal como está",
+    "me parece bien",
+    "me quedo con esa",
+    "esa me gusta, gracias",
+    "con esa opción me quedo",
+    "esa está buena",
+    "esa me convence",
+    "funciona para mí",
+
+    # Estilo "No necesito más info"
+    "no hace falta más",
+    "no me muestres más",
+    "no tengo más preguntas",
+    "ya me mostraste suficiente",
+    "ya entendí",
+    "ya vi lo que quería",
+    "gracias, ya está",
+    "cerramos con esa",
+    "no busques más",
+    "suficiente info por ahora",
+
+    # Estilo informal / WhatsApp
+    "joya",
+    "va que va",
+    "re bien, gracias",
+    "todo bien",
+    "finito",
+    "eso era lo que quería",
+    "ya estuvo",
+    "de una, esa es",
+    "cerramos",
+    "va esa",
 ]
 embeddings_base = modelo_embed.encode(frases_confirmacion, convert_to_tensor=True)
 
@@ -150,7 +198,7 @@ def parse_precio(precio_str: str) -> int | None:
     
     if unidad_raw:
         unidad_raw = unidad_raw.strip()
-        posibles = get_close_matches(unidad_raw, unidades_validas.keys(), n=1, cutoff=0.75)
+        posibles = get_close_matches(unidad_raw, unidades_validas.keys(), n=1, cutoff=0.65)
         if posibles:
             unidad = posibles[0]
         else:
@@ -191,6 +239,46 @@ PALABRAS_CLAVE_PRECIO = [
     "alquiler", 
     "venta", 
     "arriendo"
+    "cuánto es",
+    "cuánto cuesta",
+    "cuánto vale",
+    "cuánto sale",
+    "cuánto cobran",
+    "qué precio tiene",
+    "qué valor tiene",
+    "en cuánto está",
+    "qué cuesta",
+    "está caro",
+    "es barato",
+    "tarifa",
+    "costo",
+    "importe",
+    "pago mensual",
+    "canon",
+    "honorarios",
+    "plata",
+    "cuánto billete",
+    "cuánto cash",
+    "cuánto hay que pagar",
+    "cuánto toca",
+    "en cuánto me lo dejas",
+    "cuánto me sale",
+    "cuánta guita",
+    "cuánto varo",
+    "cuánto baro",
+    "financiación",
+    "cuotas",
+    "interés",
+    "abono",
+    "enganche",
+    "anticipo",
+    "subsidio",
+    "usd",
+    "us$",
+    "dólares",
+    "dolar",
+    "euros",
+    "€"
 ]
 
 def es_contexto_de_precio(texto):
@@ -343,7 +431,7 @@ def extract_filters_from_text(message: str, db: Session, current_filters: dict) 
         idx_max = similitudes.argmax().item()
         score_max = similitudes[idx_max].item()
 
-        if score_max >= 0.7:
+        if score_max >= 0.65:
             filters["tipo"] = tipos_validos[idx_max]
             logger.debug("Tipo detectado por embeddings", extra={
                 "mensaje": message,

@@ -94,6 +94,54 @@ _frases_confirmacion = [
     "quiero verla mejor",
     "quiero analizarla",
     "quiero revisar esa",
+
+    # Estilo "Eso es todo"
+    "eso es todo",
+    "con eso está bien",
+    "suficiente por ahora",
+    "listo, gracias",
+    "no necesito más",
+    "hasta ahí está bien",
+    "con eso me sirve",
+    "ya con eso",
+    "eso era",
+    "no es más",
+
+    # Estilo "Así está bien"
+    "está perfecto así",
+    "así está bien",
+    "tal como está",
+    "me parece bien",
+    "me quedo con esa",
+    "esa me gusta, gracias",
+    "con esa opción me quedo",
+    "esa está buena",
+    "esa me convence",
+    "funciona para mí",
+
+    # Estilo "No necesito más info"
+    "no hace falta más",
+    "no me muestres más",
+    "no tengo más preguntas",
+    "ya me mostraste suficiente",
+    "ya entendí",
+    "ya vi lo que quería",
+    "gracias, ya está",
+    "cerramos con esa",
+    "no busques más",
+    "suficiente info por ahora",
+
+    # Estilo informal / WhatsApp
+    "joya",
+    "va que va",
+    "re bien, gracias",
+    "todo bien",
+    "finito",
+    "eso era lo que quería",
+    "ya estuvo",
+    "de una, esa es",
+    "cerramos",
+    "va esa",
 ]
 
 _vector_confirmaciones = _model.encode(_frases_confirmacion)
@@ -101,36 +149,45 @@ _vector_confirmaciones = _model.encode(_frases_confirmacion)
 def es_confirmacion_por_regex(text: str) -> bool:
     text = text.lower()
     patrones_confirmacion = [
-        # Afirmaciones simples y universales
-        r"\b(s[ií]|sí quiero|claro que s[ií]|sí deseo|sí, por favor|vale|ok|dale|de una|claro|vamos|hazlo|listo|hecho|bueno)\b",
-        
-        # Verbos de ver y mostrar directamente
-        r"\b(m[uú]estramela|ens[eé]ñamela|déjamela ver|quiero verla|quiero ver|ens[eé]ñame)\b",
-        r"\b(m[ueé]strame|ens[eé]ñame|verla ya|verla ahora|verla pues|mostrar)\b",
 
-        # Frases como "quiero ver una opción / alternativa / inmueble"
-        r"\b(quiero|mu[ée]strame|ens[eé]ñame|ver)\b.*\b(algo|una|opci[oó]n|alternativa|inmueble|casa|apartamento|propiedad|oferta|lugar)\b",
+        # === Afirmaciones generales / simples ===
+        r"\b(s[ií]|sí quiero|sí deseo|sí por favor|claro que s[ií]|claro|vale|ok|okay|bueno|hecho|dale|de una|vamos|hazlo|listo|simon|affirmative|as[ií] es|obvio|seguro|confirm[oó]|por supuesto)\b",
 
-        # Confirmaciones estilo colombiano
-        r"\b(a ver qu[eé] ten[eé]s|mu[ée]strame qu[eé] hay|suelta lo que tengas|t[ií]rame el dato|mostrame lo que hay)\b",
-        r"\b(de una mu[ée]stramela|ya pues ens[eé]ñamela|dale pues|ya quiero verla|mostr[aá]mela ya)\b",
+        # === Verbos de mostrar / ver directamente ===
+        r"\b(m[uú]estramela|ens[eé]ñamela|déjamela ver|quiero verla|quiero ver|mu[ée]strame|ens[eé]ñame|verla ya|verla ahora|verla pues|mostrar|mostrarla|ver opciones|ver resultados|mostrar resultados|ver propiedad|ver la casa)\b",
 
-        # Decisiones implícitas
-        r"\b(est[aá] bien|perfecto|eso quiero|esa me interesa|me interesa|acepto|quiero esa|me sirve|me gust[oó])\b",
+        # === Peticiones directas + objetos relacionados ===
+        r"\b(quiero|mu[ée]strame|ens[eé]ñame|ver|ens[eé]name)\b.*\b(algo|una|opci[oó]n|alternativa|inmueble|casa|apartamento|propiedad|oferta|lugar|sitio|vivienda)\b",
 
-        # Peticiones comunes en Colombia
-        r"\b(ver detalles|ver fotos|ver m[aá]s|ver info|ver informaci[oó]n|ver precio|ver ubicaci[oó]n)\b",
+        # === Confirmaciones estilo informal / colombiano / latino ===
+        r"\b(a ver qu[eé] ten[eé]s|mu[ée]strame qu[eé] hay|suelta lo que tengas|t[ií]rame el dato|solt[aá] lo que tengas|mostrame lo que hay|de una|de una parcero|ya pues|ya quiero verla|mostr[aá]mela ya|ya mismo|ya mu[ée]strala|ahora mu[ée]stramela)\b",
 
-        # Cierre con intención
-        r"\b(listo, veamos|bueno, mu[ée]strala|dale, quiero verla|ya pues, mu[ée]strala)\b",
+        # === Expresiones de aceptación o elección implícita ===
+        r"\b(est[aá] bien|perfecto|eso quiero|esa quiero|esa me interesa|me interesa|acepto|me sirve|quiero esa|me gust[oó]|esa est[aá] bien|esa me gusta|me gust[oó] esa|me llama la atenci[oó]n|esa puede ser|esa me convence|me voy con esa)\b",
+
+        # === Peticiones con intención de ver más información ===
+        r"\b(ver detalles|ver fotos|ver m[aá]s|ver info|ver informaci[oó]n|ver precio|ver ubicaci[oó]n|mostrar fotos|mostrar m[aá]s datos|mu[ée]strame el link|ver link|ver mapa|ver todo|ver ficha)\b",
+
+        # === Confirmaciones indirectas o de cierre ===
+        r"\b(listo, veamos|bueno, mu[ée]strala|dale, quiero verla|ya pues, mu[ée]strala|veamos esa|hazlo ya|mu[ée]strala entonces|mu[ée]strame entonces|dale con esa|mu[ée]strame esa|quiero ver esa|esa es|esa quiero|mu[ée]strame la opci[oó]n)\b",
+
+        # === Expresiones con modismos o frases de calle ===
+        r"\b(lanzate con esa|tira esa ya|dale con la que tengas|muestra lo que hay|t[íi]rate una|muestrame lo que tengas|dale, de una|mu[ée]strame lo que ten[eé]s|mu[ée]strame pues|ya estoy listo|m[ueé]strame nom[aá]s|veamos esa vaina)\b",
+
+        # === Preguntas con intención de ver ===
+        r"\b(puedo verla\??|me la puedes mostrar\??|la puedo ver\??|me muestras esa\??|me enseñas esa\??|me enseñas la casa\??|puedo ver opciones\??|me puedes mostrar\??|me enseñas algo\??|hay algo para ver\??)\b",
+
+        # === Afirmaciones con intención de acción inmediata ===
+        r"\b(ya quiero ver|quiero eso|mu[ée]strame ya|vamos a eso|hazlo ya|mostr[aá] ya|dale sin miedo|mu[ée]strame sin pensarlo)\b",
     ]
     return any(re.search(p, text) for p in patrones_confirmacion)
+
 
 def es_confirmacion_usuario_embeddings(message: str) -> bool:
     vector_usuario = _model.encode([message])
     similitudes = cosine_similarity(vector_usuario, _vector_confirmaciones)[0]
     logger.debug("Similitud por embeddings:", extra={"input": message, "scores": similitudes.tolist()})
-    return any(score >= 0.75 for score in similitudes)
+    return any(score >= 0.65 for score in similitudes)
 
 def es_confirmacion_usuario(message: str) -> bool:
     return es_confirmacion_por_regex(message) or es_confirmacion_usuario_embeddings(message)
@@ -189,12 +246,71 @@ frases_indiferencia = [
     "lo que te parezca bien",
     "me acomodo fácil",
     "con que sea decente, me sirve",
+
+    # Nuevas expresiones comunes/neutras
+    "lo que tú digas",
+    "elige tú",
+    "cualquiera me funciona",
+    "la que tú creas mejor",
+    "yo no escojo, tú decide",
+    "la que te parezca bien",
+    "dale a cualquiera",
+    "escoge tú",
+    "no tengo inclinación",
+    "todas me parecen bien",
+    "como tú veas",
+    "no me decido, elige por mí",
+    "que sea lo que Dios quiera",
+    "todas suenan bien",
+    "ninguna en especial",
+    "la que quieras mostrar",
+    "como tú prefieras",
+    "tú mandas",
+    "a tu criterio",
+    "a mí me da lo mismo",
+
+    # Informales o con humor
+    "lánzate con la que sea",
+    "saca una al azar",
+    "el destino dirá",
+    "lo que caiga primero",
+    "escoge con los ojos cerrados",
+    "me lanzo a lo que sea",
+    "esa vaina me da igual",
+    "yo le jalo a todo",
+    "esa vuelta no me afecta",
+    "eso no me quita el sueño",
+    "yo me dejo llevar",
+    "lo que quieras mostrar primero",
+    "échale suerte",
+    "tú verás qué me das",
+    "tírate una cualquiera",
+    "el azar manda",
+
+    # Estilo colaborativo/sumiso (cliente relajado)
+    "confío en tu criterio",
+    "muéstrame lo que tú creas",
+    "yo te sigo",
+    "lo que tú escojas está bien",
+    "me adapto",
+    "a mí todo me parece",
+    "lo que tú veas conveniente",
+    "muéstrame cualquier opción",
+    "tú decides por mí",
+    "la que tú prefieras",
+
+    # Estilo resignado/despreocupado
+    "igual me va a tocar",
+    "todo me da lo mismo",
+    "ni idea, lo que sea",
+    "no sé, escoge tú",
+    "yo ni opino, muéstrame nomás",
 ]
 
 # Precalcular los embeddings de esas frases
 embeddings_indiferencia = _model.encode(frases_indiferencia, convert_to_tensor=True)
 
-def es_indiferencia_usuario_embeddings(mensaje: str, umbral: float = 0.75) -> bool:
+def es_indiferencia_usuario_embeddings(mensaje: str, umbral: float = 0.65) -> bool:
     """
     Detecta si el usuario expresa indiferencia usando similitud semántica con embeddings.
     """
